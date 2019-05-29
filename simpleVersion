@@ -1,0 +1,31 @@
+import processing.video.*;
+Movie vid;
+
+float rx = 0.0; 
+
+void setup() {
+  size(1280, 800, P3D);
+
+  vid = new Movie(this, "putYourVideoNameHere.mov");
+  vid.loop();
+  noStroke();
+  noCursor();
+
+}
+
+void draw() {
+  vid.read();
+  translate(width / 2, height/2);
+  if(mousePressed){
+ float ma = map(mouseX,  0,width,.0,.2);
+  rotateX (rx);
+  rx = rx + ma;
+   }
+   beginShape();
+  texture(vid);
+  vertex(-640, -400, 0, 0, 0);
+  vertex(640, -400, 0, vid.width, 0);
+  vertex(640, 400, 0, vid.width, vid.height);
+  vertex(-640, 400, 0, 0, vid.height);
+  endShape();
+}
